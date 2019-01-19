@@ -23,6 +23,7 @@
         <module>serverd</module>
         <module>servere</module>
         <module>serverf</module>
+        <module>serverg</module>
     </modules>
 
     <properties>
@@ -48,6 +49,12 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
 

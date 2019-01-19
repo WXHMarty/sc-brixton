@@ -9,9 +9,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>com.xxx.brixton</groupId>
-    <artifactId>serverf</artifactId>
+    <artifactId>serverg</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>serverf</name>
+    <name>serverg</name>
     <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
@@ -27,7 +27,13 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+
+        <!-- 当远程配置文件发生改变，则需要调用此依赖包中的/refresh接口动态刷新配置文件 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <dependency>

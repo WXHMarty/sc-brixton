@@ -2,6 +2,7 @@ package com.xxx.brixton.serverd.controller;
 
 import com.xxx.brixton.serverd.server.DService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +17,7 @@ public class DController {
     @Autowired
     private DService dService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    @RequestMapping(value = "/add", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Map add(@RequestParam Integer a, @RequestParam Integer b) {
         return dService.add(a, b);
     }
