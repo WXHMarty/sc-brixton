@@ -24,6 +24,8 @@ public class EController {
     @RequestMapping(value = "/add", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Map add(@RequestParam Integer a, @RequestParam Integer b) {
         String res = eService.add(a, b);
+        Map r = JSONObject.parseObject(res).getInnerMap();
+        r.put("server", "e");
         log.info("== " + res);
         return JSONObject.parseObject(res).getInnerMap();
     }

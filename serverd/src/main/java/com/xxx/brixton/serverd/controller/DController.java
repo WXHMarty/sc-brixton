@@ -19,6 +19,8 @@ public class DController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Map add(@RequestParam Integer a, @RequestParam Integer b) {
-        return dService.add(a, b);
+        Map res = dService.add(a, b);
+        res.put("server", "d");
+        return res;
     }
 }

@@ -25,6 +25,8 @@ public class CController {
     public Map add(@RequestParam Integer a, @RequestParam Integer b) {
         String res = cService.add(a, b);
         log.info(res);
-        return JSONObject.parseObject(res).getInnerMap();
+        Map r = JSONObject.parseObject(res).getInnerMap();
+        r.put("server", "c");
+        return r;
     }
 }

@@ -16,7 +16,9 @@
     <description>Demo project for Spring Boot</description>
 
     <modules>
+        <module>common</module>
         <module>eureka</module>
+        <module>eureka1</module>
         <module>servera</module>
         <module>serverb</module>
         <module>serverc</module>
@@ -24,6 +26,7 @@
         <module>servere</module>
         <module>serverf</module>
         <module>serverg</module>
+        <module>serverh</module>
     </modules>
 
     <properties>
@@ -38,6 +41,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.xxx.brixton</groupId>
+                <artifactId>common</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -62,6 +71,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>1.2.49</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.16.18</version>
             </dependency>
 
             <dependency>

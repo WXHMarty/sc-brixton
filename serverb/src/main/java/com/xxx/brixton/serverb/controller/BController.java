@@ -1,5 +1,6 @@
 package com.xxx.brixton.serverb.controller;
 
+import com.xxx.brixton.common.constant.Response;
 import com.xxx.brixton.serverb.service.BService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,8 +19,9 @@ public class BController {
     private BService bService;
 
     @RequestMapping(value = "/add", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Map add(@RequestParam Integer a, @RequestParam Integer b) {
+    public Response<Map> add(@RequestParam Integer a, @RequestParam Integer b) {
         Map r = bService.add(a, b);
-        return r;
+        r.put("server", "b");
+        return Response.success(r);
     }
 }
