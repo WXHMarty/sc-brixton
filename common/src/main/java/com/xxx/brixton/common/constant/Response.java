@@ -28,6 +28,10 @@ public class Response<T> {
         this.data = data;
     }
 
+    public static Response success() {
+        return new Response(Response.CODE_SUCCESS, "SUCCESS");
+    }
+
     public static <T> Response success(T data) {
         return new Response<T>(Response.CODE_SUCCESS, "SUCCESS", data);
     }
