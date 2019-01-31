@@ -1,9 +1,13 @@
 package com.xxx.brixton.serverb.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xxx.brixton.common.constant.Response;
+import com.xxx.brixton.common.constant.MessageData;
 import com.xxx.brixton.common.entity.Entity;
+import com.xxx.brixton.common.rocketmq.Producer;
 import org.apache.log4j.Logger;
+import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.remoting.common.RemotingHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +17,10 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class BService {
@@ -26,6 +32,15 @@ public class BService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private Producer producer;
+
+    @Value("${rocket.topic}")
+    private String mqTopic;
+
+    @Value("${rocket.tags}")
+    private String mqTags;
 
     public Map add(Integer a, Integer b) {
         String url = "http://" + serverA + "/server/a/add?a=" + a + "&b=" + b;
@@ -73,5 +88,28 @@ public class BService {
         Entity entity = restTemplate.getForObject(url, Entity.class, "1");
         log.info(JSONObject.toJSONString(entity));
         return entity;
+    }
+
+    /**
+     * 测试发送mq消息
+     */
+    public void sendDataToServerC() {
+        for (int i=0; i<30; i++) {
+            try {
+                // 组织数据协议
+                Map<String, String> map = new HashMap<>();
+                map.put("asdf", ">>>>bhutyu:----> " + i);
+                String json = MessageData.of(map).toJson();
+                Message msg = new Message(mqTopic, Arrays.asList(mqTags.split(","))
+                        .stream().collect(Collectors.joining(" || ")),
+                        json.getBytes(RemotingHelper.DEFAULT_CHARSET));
+                SendResult result = producer.send(msg);
+                log.info("== " + result);
+                Thread.sleep(500);
+            } catch (Exception e) {
+                log.error(e.getMessage());
+                return;
+            }
+        }
     }
 }
